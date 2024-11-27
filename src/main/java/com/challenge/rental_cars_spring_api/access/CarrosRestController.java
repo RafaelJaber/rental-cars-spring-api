@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/carros")
 @RequiredArgsConstructor
+@RequestMapping("/carros")
 public class CarrosRestController {
     private final ListarCarrosQuery listarCarrosQuery;
 
