@@ -27,6 +27,13 @@ public class CustomControllerAdvice {
         return ResponseEntity.status(status).body(err);
     }
 
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<CustomErrorResponse> handleAllExceptions(Exception ex, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        CustomErrorResponse err = buildCustomError(status, ex.getMessage(), request);
+        return ResponseEntity.status(status).body(err);
+    }
 
 
     private CustomErrorResponse buildCustomError(HttpStatus status, String message, HttpServletRequest request) {
