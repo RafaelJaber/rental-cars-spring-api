@@ -2,9 +2,13 @@ package com.challenge.rental_cars_spring_api.access;
 
 import com.challenge.rental_cars_spring_api.core.queries.ListarCarrosQuery;
 import com.challenge.rental_cars_spring_api.core.queries.dtos.ListarCarrosQueryResultItem;
-import com.challenge.rental_cars_spring_api.infrastructure.openapi.CarrosRestControllerOpenApi;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,18 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/carros")
-public class CarrosRestController implements CarrosRestControllerOpenApi {
-
+@RequiredArgsConstructor
+public class CarrosRestController {
     private final ListarCarrosQuery listarCarrosQuery;
 
-    @Override
     @GetMapping
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Retorna a lista com os carros encontrados.", content = {
+                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ListarCarrosQueryResultItem.class))}),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor", content = {
+                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)})})
     public ResponseEntity<List<ListarCarrosQueryResultItem>> listarCarros() {
-        List<ListarCarrosQueryResultItem> result = listarCarrosQuery.execute();
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(result);
+        return new ResponseEntity<>(listarCarrosQuery.execute(), HttpStatus.OK);
     }
 }
