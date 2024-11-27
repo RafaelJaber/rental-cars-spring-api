@@ -82,4 +82,4 @@ Diferenciais:
 
 - [x] Logue as informações que achar pertinentes.
 - [x] Trate os possíves erros de forma adequada.
-- [ ] Certifique-se que a aplicação esteja bem testada com testes unitários.
+- [x] Certifique-se que a aplicação esteja bem testada com testes unitários.
