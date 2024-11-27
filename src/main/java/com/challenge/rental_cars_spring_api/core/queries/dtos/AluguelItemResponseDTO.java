@@ -1,6 +1,7 @@
 package com.challenge.rental_cars_spring_api.core.queries.dtos;
 
 import com.challenge.rental_cars_spring_api.core.domain.Aluguel;
+import com.challenge.utils.TelefoneUtils;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -21,7 +22,7 @@ public record AluguelItemResponseDTO (
                 aluguel.getCarro().getModelo(),
                 aluguel.getCarro().getKm(),
                 aluguel.getCliente().getNome(),
-                aluguel.getCliente().getTelefone(),
+                TelefoneUtils.formatarTelefone("55" + aluguel.getCliente().getTelefone()),
                 aluguel.getDataDevolucao(),
                 aluguel.getValor(),
                 aluguel.getPago() ? "SIM" : "NAO"
