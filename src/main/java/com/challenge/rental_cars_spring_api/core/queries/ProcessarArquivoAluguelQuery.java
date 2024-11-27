@@ -25,7 +25,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CalcularAluguelQuery {
+public class ProcessarArquivoAluguelQuery {
 
     private final AluguelRepository aluguelRepository;
     private final CarroRepository carroRepository;
@@ -48,7 +48,7 @@ public class CalcularAluguelQuery {
                 resultado.setTotalRegistros(resultado.getTotalRegistros() + 1);
 
                 if (line.length() != 20) {
-                    log.error("Linha inválida: {}", line);
+                    log.warn("Linha inválida: {}", line);
                     resultado.setTotalRegistrosComErro(resultado.getTotalRegistrosComErro() + 1);
                     continue;
                 }
@@ -60,14 +60,14 @@ public class CalcularAluguelQuery {
 
                 Optional<Carro> carroOptional = carroRepository.findById(carroId);
                 if (carroOptional.isEmpty()) {
-                    log.error("Carro não encontrado: {}", carroId);
+                    log.warn("Carro não encontrado: {}", carroId);
                     resultado.setTotalRegistrosComErro(resultado.getTotalRegistrosComErro() + 1);
                     continue;
                 }
 
                 Optional<Cliente> clienteOptional = clienteRepository.findById(clienteId);
                 if (clienteOptional.isEmpty()) {
-                    log.error("Cliente não encontrado: {}", clienteId);
+                    log.warn("Cliente não encontrado: {}", clienteId);
                     resultado.setTotalRegistrosComErro(resultado.getTotalRegistrosComErro() + 1);
                     continue;
                 }
