@@ -4,6 +4,7 @@ import com.challenge.rental_cars_spring_api.core.queries.dtos.ListarCarrosQueryR
 import com.challenge.rental_cars_spring_api.infrastructure.repositories.CarroRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class ListarCarrosQuery {
 
     private final CarroRepository carroRepository;
 
+    @Transactional(readOnly = true)
     public List<ListarCarrosQueryResultItem> execute() {
         return carroRepository
                 .findAll()

@@ -11,6 +11,7 @@ import com.challenge.rental_cars_spring_api.infrastructure.repositories.ClienteR
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
@@ -31,6 +32,7 @@ public class ProcessarArquivoAluguelQuery {
     private final CarroRepository carroRepository;
     private final ClienteRepository clienteRepository;
 
+    @Transactional
     public ResultadoProcessamentoArquivoDTO processaArquivo(MultipartFile file) {
         try {
             ResultadoProcessamentoArquivoDTO resultado = new ResultadoProcessamentoArquivoDTO(
